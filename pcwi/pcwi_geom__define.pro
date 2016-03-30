@@ -88,7 +88,7 @@ tmp = { pcwi_geom, $
 	pxscl:0.00008096d0, $	; degrees per unbinned spatial pixel
 ;
 ; slice scale
-	slscl:0.00075437d0, $	; degrees per slice
+	slscl:0.00073611d0, $	; degrees per slice
 ;
 ; CCD binning
 	xbinsize:1, $		; binning in x (pixels)

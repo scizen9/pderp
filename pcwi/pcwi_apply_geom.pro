@@ -196,7 +196,8 @@ if nra ne 1 or ndec ne 1 then begin
 endif
 ;
 ; Position Angle ( = -ROTPA) in radians
-crota = -sxpar(hdr,'ROTPA',count=npa) / !RADEG
+; Plus a 1.37 degree correction (thank to Drew Newman)
+crota = (-sxpar(hdr,'ROTPA',count=npa) + 1.37) / !RADEG
 ;
 ; pixel scales
 cdelt1 = -pgeom.pxscl*pgeom.xbinsize	; RA degrees per px (column)
