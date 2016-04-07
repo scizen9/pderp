@@ -219,7 +219,7 @@ pro pcwi_stage3flat,ppfname,linkfname,help=help,select=select, $
 				if fnums[i] ge 0 then begin
 					;
 					; master flat file name
-					mffile = cdir + 'mflat_' + strn(fnums[i]) + '.fits'
+					mffile = cdir + 'mflat_' + string(fnums[i],'(i0'+strn(ppar.fdigits)+')') + '.fits'
 					;
 					; master flat image ppar filename
 					mfppfn = strmid(mffile,0,strpos(mffile,'.fits')) + '.ppar'
@@ -261,7 +261,7 @@ pro pcwi_stage3flat,ppfname,linkfname,help=help,select=select, $
 					var = var * mflat^2
 					;
 					; update header
-					sxaddpar,mskhdr,'COMMENT','  '+pre+' '+systime(0)
+					sxaddpar,mskhdr,'HISTORY','  '+pre+' '+systime(0)
 					sxaddpar,mskhdr,'FLATCOR','T',' flat corrected?'
 					sxaddpar,mskhdr,'MFFILE',mffile,' master flat file applied'
 					;
@@ -270,7 +270,7 @@ pro pcwi_stage3flat,ppfname,linkfname,help=help,select=select, $
 					pcwi_write_image,msk,mskhdr,ofil,ppar
 					;
 					; update header
-					sxaddpar,varhdr,'COMMENT','  '+pre+' '+systime(0)
+					sxaddpar,varhdr,'HISTORY','  '+pre+' '+systime(0)
 					sxaddpar,varhdr,'FLATCOR','T',' flat corrected?'
 					sxaddpar,varhdr,'MFFILE',mffile,' master flat file applied'
 					;
@@ -279,7 +279,7 @@ pro pcwi_stage3flat,ppfname,linkfname,help=help,select=select, $
 					pcwi_write_image,var,varhdr,ofil,ppar
 					;
 					; update header
-					sxaddpar,hdr,'COMMENT','  '+pre+' '+systime(0)
+					sxaddpar,hdr,'HISTORY','  '+pre+' '+systime(0)
 					sxaddpar,hdr,'FLATCOR','T',' flat corrected?'
 					sxaddpar,hdr,'MFFILE',mffile,' master flat file applied'
 					;

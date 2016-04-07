@@ -207,7 +207,7 @@ if keyword_set(tweak) then begin
 		;
 		; get continuum point in each sector
 		for sec = 0,sectors-1 do begin
-			mn = min(specs[minrow+sec*div:minrow+(sec+1)*div],mi)
+			mn = min(specs[minrow+sec*div:minrow+(sec+1)*div,b],mi)
 			xv[sec] = mi+minrow+sec*div
 			yv[sec] = mn
 		endfor

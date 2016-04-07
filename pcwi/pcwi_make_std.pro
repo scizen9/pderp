@@ -350,7 +350,7 @@ pro pcwi_make_std,pcfg,ppar,invsen
 	; write out effective inverse sensitivity
 	;
 	; update invsens header
-	sxaddpar,hdr,'COMMENT','  '+pre+' '+systime(0)
+	sxaddpar,hdr,'HISTORY','  '+pre+' '+systime(0)
 	sxaddpar,hdr,'INVSENS','T',' effective inv. sens. spectrum?'
 	sxaddpar,hdr,'INVSY0',y0,' low wave pixel for eff inv. sens.'
 	sxaddpar,hdr,'INVSY1',y1,' high wave pixel for eff inv. sens.'

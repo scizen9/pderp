@@ -160,7 +160,7 @@ pro pcwi_make_flat,ppar
 	pcwi_fit_flat,mflat,hdr,ppar,flato
 	;
 	; update master flat header
-	sxaddpar,hdr,'COMMENT','  '+pre+' '+systime(0)
+	sxaddpar,hdr,'HISTORY','  '+pre+' '+systime(0)
 	sxaddpar,hdr,'NMEDIAN',nf, $
 		' number of images used for stack'
 	sxaddpar,hdr,'MASTFLAT','T',' master flat image?'

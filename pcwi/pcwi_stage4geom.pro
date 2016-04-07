@@ -306,7 +306,7 @@ pro pcwi_stage4geom,ppfname,linkfname,help=help,select=select, $
 						; object image
 						img = mrdfits(obfil,0,hdr,/fscale,/silent)
 						;
-						sxaddpar,hdr, 'COMMENT','  '+pre+' '+systime(0)
+						sxaddpar,hdr, 'HISTORY','  '+pre+' '+systime(0)
                                                 ;
                                                 ; CWI FLEX ADDITION/CHANGES +++
                                                 ;
@@ -326,7 +326,7 @@ pro pcwi_stage4geom,ppfname,linkfname,help=help,select=select, $
 						if file_test(vfil,/read) then begin
 							var = mrdfits(vfil,0,varhdr,/fscale,/silent)
 							;
-							sxaddpar,varhdr,'COMMENT','  '+pre+' '+systime(0)
+							sxaddpar,varhdr,'HISTORY','  '+pre+' '+systime(0)
                                 			;
                                 			; CWI FLEX ADDITIONS + CHANGES +++
                                                         pcwi_apply_geom,var,varhdr,pgeom,ppar,vcub,vchdr,flex=flexpar
@@ -343,7 +343,7 @@ pro pcwi_stage4geom,ppfname,linkfname,help=help,select=select, $
 						if file_test(mfil,/read) then begin
 							msk = float(mrdfits(mfil,0,mskhdr,/silent))
 							;
-                                                        sxaddpar,mskhdr,'COMMENT','  '+pre+' '+systime(0)
+                                                        sxaddpar,mskhdr,'HISTORY','  '+pre+' '+systime(0)
                                 			; CWI FLEX ADDITIONS/CHANGES +++
                                                         ;
                                                         pcwi_apply_geom,msk,mskhdr,pgeom,ppar,mcub,mchdr,flex=flexpar
@@ -360,7 +360,7 @@ pro pcwi_stage4geom,ppfname,linkfname,help=help,select=select, $
 						if file_test(sfil,/read) then begin
 							sky = mrdfits(sfil,0,skyhdr,/fscale,/silent)
 							;
-							sxaddpar,skyhdr,'COMMENT','  '+pre+' '+systime(0)
+							sxaddpar,skyhdr,'HISTORY','  '+pre+' '+systime(0)
                                 			;
                                 			; CWI FLEX ADDITIONS/CHANGES +++
                                                         pcwi_apply_geom,sky,skyhdr,pgeom,ppar,scub,schdr,flex=flexpar
@@ -377,7 +377,7 @@ pro pcwi_stage4geom,ppfname,linkfname,help=help,select=select, $
 						if file_test(nfil,/read) then begin
 							obj = mrdfits(nfil,0,objhdr,/fscale,/silent)
 							;
-                                                        sxaddpar,objhdr,'COMMENT','  '+pre+' '+systime(0)
+                                                        sxaddpar,objhdr,'HISTORY','  '+pre+' '+systime(0)
                                 			; CWI FLEX ADDITIONS/CHANGES +++
                                                         pcwi_apply_geom,obj,objhdr,pgeom,ppar,ocub,ochdr,flex=flexpar
                                 			; CWI FLEX ADDITIONS/CHANGES ---
