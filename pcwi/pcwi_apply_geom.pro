@@ -268,8 +268,8 @@ sxaddpar,chdr,'CD2_2',cd22,' DEC degrees per row pixel'
 sxaddpar,chdr,'CD3_3',pgeom.dwout,' Wavelength Angstroms per pixel'
 sxaddpar,chdr,'LONPOLE',180.0,' Native longitude of Celestial pole'
 sxaddpar,chdr,'LATPOLE',0.0,' Celestial latitude of native pole'
-sxaddpar,chdr,'COMMENT','  '+pgeom.progid
-sxaddpar,chdr,'COMMENT','  '+pre+' '+systime(0)
+sxaddpar,chdr,'HISTORY','  '+pgeom.progid+' '+systime(0,pgeom.timestamp)
+sxaddpar,chdr,'HISTORY','  '+pre+' '+systime(0)
 ;
 return
 end

@@ -188,7 +188,7 @@ pro pcwi_make_dark,ppar
 			mmsk[xi,yi] = (total(mstack[*,xi,yi]) gt mskthr) ? 1 : 0
 		;
 		; update master flat header
-		sxaddpar,hdr,'COMMENT','  '+pre+' '+systime(0)
+		sxaddpar,hdr,'HISTORY','  '+pre+' '+systime(0)
 		sxaddpar,hdr,'NMEDIAN',nd, $
 			' number of images used for stack'
 		sxaddpar,hdr,'MASTDARK','T',' master dark image?'
@@ -199,7 +199,7 @@ pro pcwi_make_dark,ppar
 		pcwi_write_image,mdark,hdr,ppar.masterdark,ppar
 		;
 		; update master variance header
-		sxaddpar,varhdr,'COMMENT','  '+pre+' '+systime(0)
+		sxaddpar,varhdr,'HISTORY','  '+pre+' '+systime(0)
 		sxaddpar,varhdr,'NMEDIAN',nd, $
 			' number of images used for stack'
 		sxaddpar,varhdr,'MASTDARK','T',' master dark image?'
@@ -214,7 +214,7 @@ pro pcwi_make_dark,ppar
 		pcwi_write_image,mvar,varhdr,mastervar,ppar
 		;
 		; update master mask header
-		sxaddpar,mskhdr,'COMMENT','  '+pre+' '+systime(0)
+		sxaddpar,mskhdr,'HISTORY','  '+pre+' '+systime(0)
 		sxaddpar,mskhdr,'NMEDIAN',nd, $
 			' number of images used for stack'
 		sxaddpar,mskhdr,'MASTDARK','T',' master dark image?'

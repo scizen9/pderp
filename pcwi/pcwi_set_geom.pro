@@ -168,7 +168,7 @@ pro pcwi_set_geom,pgeom,ipcfg,ppar, help=help
 			pgeom.dwout = 0.11 * float(pcfg.ybinsize)
 		endif else if strtrim(pcfg.gratid,2) eq 'YELLOW' then begin
 			pgeom.resolution = 0.82	; Angstroms
-			pgeom.wavran = 570	; Angstroms
+			pgeom.wavran = 570.	; Angstroms
 			pgeom.ccwn = 260./pgeom.ybinsize	; Pixels
 			pgeom.rho = 2.5300d
 			pgeom.slant = -1.1d

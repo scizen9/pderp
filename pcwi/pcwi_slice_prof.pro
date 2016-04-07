@@ -233,7 +233,7 @@ pro pcwi_slice_prof,pcfg,ppar,profs
 	endfor	; loop over 24 slices
 	;
 	; update profile image header
-	sxaddpar,hdr,'COMMENT','  '+pre+' '+systime(0)
+	sxaddpar,hdr,'HISTORY','  '+pre+' '+systime(0)
 	sxaddpar,hdr,'SLPROF','T',' Slice profile image?'
 	sxaddpar,hdr,'SLPROFY0',y0,' low wave pixel for profile'
 	sxaddpar,hdr,'SLPROFY1',y3,' high wave pixel for profile'
