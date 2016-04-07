@@ -90,6 +90,9 @@ tmp = { pcwi_geom, $
 ; slice scale
 	slscl:0.00073611d0, $	; degrees per slice
 ;
+; IFU rotation offset
+	rotoff:1.31, $		; degrees from rotator PA
+;
 ; CCD binning
 	xbinsize:1, $		; binning in x (pixels)
 	ybinsize:1, $		; binning in y (pixels)

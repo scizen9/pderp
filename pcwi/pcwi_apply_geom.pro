@@ -196,8 +196,10 @@ if nra ne 1 or ndec ne 1 then begin
 endif
 ;
 ; Position Angle ( = -ROTPA) in radians
-; Plus a 1.37 degree correction (thank to Drew Newman)
-crota = (-sxpar(hdr,'ROTPA',count=npa) + 1.37) / !RADEG
+; Plus a correction (thanks to Drew Newman)
+crota = (-(sxpar(hdr,'ROTPA',count=npa) + pgeom.rotoff)) / !RADEG
+sxaddpar,chdr,'IFUPA',crota*!RADEG,' IFU position angle (degrees)'
+sxaddpar,chdr,'IFUROFF',pgeom.rotoff,' IFU-ROTPA offset (degrees)'
 ;
 ; pixel scales
 cdelt1 = -pgeom.pxscl*pgeom.xbinsize	; RA degrees per px (column)
