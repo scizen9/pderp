@@ -43,6 +43,7 @@
 ;	2013-OCT-02	Re-ordered output cube axes and added WCS
 ;       2015-APR-25     Added CWI flexure hooks (MM)
 ;	2016-MAR-03	Split from kderp to pderp
+;	2016-APR-21	Update rotation calculation
 ;-
 ; CWI FLEX CHANGE ++
 pro pcwi_apply_geom,img,hdr,pgeom,ppar,cube,chdr, $
@@ -198,7 +199,7 @@ endif
 ; Position Angle ( = -ROTPA) in radians
 ; Plus a correction (thanks to Drew Newman)
 crota = (-(sxpar(hdr,'ROTPA',count=npa) + pgeom.rotoff)) / !RADEG
-sxaddpar,chdr,'IFUPA',crota*!RADEG,' IFU position angle (degrees)'
+sxaddpar,chdr,'IFUPA',-crota*!RADEG,' IFU position angle (degrees)'
 sxaddpar,chdr,'IFUROFF',pgeom.rotoff,' IFU-ROTPA offset (degrees)'
 ;
 ; pixel scales

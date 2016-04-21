@@ -44,6 +44,7 @@
 ;	2013-MAY-03	Initial version
 ;	2013-AUG-12	Added padlo, padhi tags
 ;	2016-MAR-03	Split from kderp to pderp
+;	2016-APR-21	Added rotoff tag
 ;-
 pro pcwi_geom__define
 ;
@@ -91,7 +92,7 @@ tmp = { pcwi_geom, $
 	slscl:0.00073611d0, $	; degrees per slice
 ;
 ; IFU rotation offset
-	rotoff:1.31, $		; degrees from rotator PA
+	rotoff:1.58, $		; degrees from rotator PA
 ;
 ; CCD binning
 	xbinsize:1, $		; binning in x (pixels)

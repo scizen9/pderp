@@ -1,6 +1,21 @@
 # $Id: RELEASE_NOTES | Fri Apr 24 12:15:57 2015 -0700 | Don Neill  $
 # Copyright (c) 2013, California Institute of Technology, all rights reserved
 
+2016-APR-22: v0.3.1 - Thirteenth beta release
+
+- Added an IFU - Rotator offset angle in order to correctly set up the
+	CD matix in the WCS, also based on astrometry by Drew
+
+- Updated the data cube slice pixel scale (Y-axis) based on astrometry
+	performed by Drew Newman
+
+- Changed FITS COMMENT keywords to HISTORY keywords
+
+- Fixed a bug in tweaked continuum subtraction
+
+- Now use fdigits to format master file names properly
+
+
 2016-MAR-03: v0.3.0 - Twelfth beta release
 
 - Split off PCWI pipeline from KCWI pipeline.
