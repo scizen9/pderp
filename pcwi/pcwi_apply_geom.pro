@@ -217,11 +217,11 @@ if nra ne 1 or ndec ne 1 or npa ne 1 then begin
 	ra = 0.
 	dec = 0.
 	;
-	; zero CD matrix
-	CD11 = 0.
-	CD12 = 0.
-	CD21 = 0.
-	CD22 = 0.
+	; nominal CD matrix (no rotation)
+	CD11 = cdelt1*cos(0.)
+	CD12 = abs(cdelt2)*sign(cdelt1)*sin(0.)
+	CD21 = -abs(cdelt1)*sign(cdelt2)*sin(0.)
+	CD22 = cdelt2*cos(0.)
 endif else begin
 	;
 	; calculate CD matrix
