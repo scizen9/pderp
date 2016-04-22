@@ -89,7 +89,7 @@ tmp = { pcwi_geom, $
 	pxscl:0.00008096d0, $	; degrees per unbinned spatial pixel
 ;
 ; slice scale
-	slscl:0.00073611d0, $	; degrees per slice
+	slscl:0.00073556d0, $	; degrees per slice
 ;
 ; IFU rotation offset
 	rotoff:1.58, $		; degrees from rotator PA

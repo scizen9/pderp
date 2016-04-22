@@ -212,7 +212,7 @@ pro pcwi_set_geom,pgeom,ipcfg,ppar, help=help
 		;
 		; spatial scales
 		pgeom.pxscl = 0.00008096d0	; degrees per unbinned pixel
-		pgeom.slscl = 0.00075437d0	; degrees per slice
+		pgeom.slscl = 0.00073556d0	; degrees per slice
 	endif else begin
 		pcwi_print_info,ppar,pre,'Unknown instrument',pcfg.instrume,/error
 		return
