@@ -6,7 +6,7 @@ Copyright (c) 2016, California Institute of Technology.  All rights reserved.
         PCWI Data Extraction and Reduction Pipeline (PDERP) README
 
 
-Thirteenth beta release; Version: 0.3.1 Date: 2016/04/22
+Thirteenth beta release; Version: 0.3.1 Date: 2016/04/25
 
 New routine: pcwi_quick.pro for at-telescope reductions.  See NEW FEATURES
 (section 4) below.
