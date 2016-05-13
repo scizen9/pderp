@@ -233,15 +233,23 @@ pro pcwi_stage4geom,ppfname,linkfname,help=help,select=select, $
 						cbf = pcwi_get_imname(ppar,cnums[i],'_intf',/reduced)
 						arf = pcwi_get_imname(ppar,anums[i],'_intf',/reduced)
 						;
-						; check for dark subtracted images next
-						if not file_test(cbf) or not file_test(arf) then begin
+						; check for dark subtracted cbars next
+						if not file_test(cbf) then begin
 							cbf = pcwi_get_imname(ppar,cnums[i],'_intd',/reduced)
+						endif
+						;
+						; check for dark subtracted arc next
+						if not file_test(arf) then begin
 							arf = pcwi_get_imname(ppar,anums[i],'_intd',/reduced)
 						endif
 						;
-						; check for stage1 output images last
-						if not file_test(cbf) or not file_test(arf) then begin
+						; check for stage1 output cbars last
+						if not file_test(cbf) then begin
 							cbf = pcwi_get_imname(ppar,cnums[i],'_int',/reduced)
+						endif
+						;
+						; check for stage1 output arc last
+						if not file_test(arf) then begin
 							arf = pcwi_get_imname(ppar,anums[i],'_int',/reduced)
 						endif
 						;
@@ -305,6 +313,8 @@ pro pcwi_stage4geom,ppfname,linkfname,help=help,select=select, $
 						;
 						; object image
 						img = mrdfits(obfil,0,hdr,/fscale,/silent)
+						pcwi_print_info,ppar,pre,'reading object image',obfil, $
+							format='(a,a)'
 						;
 						sxaddpar,hdr, 'HISTORY','  '+pre+' '+systime(0)
                                                 ;

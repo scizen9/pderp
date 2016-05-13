@@ -240,52 +240,61 @@ pro pcwi_stage3flat,ppfname,linkfname,help=help,select=select, $
 				; let's read in or create master flat
 				if do_flat then begin
 					;
-					; build master flat if necessary
-					if not file_test(mffile) then begin
+					; skip flat correction for continuum bars
+					if strpos(pcfg.imgtype,'bars') ge 0 then begin
+						pcwi_print_info,ppar,pre,'skipping flattening of cbars image',/info
+
+					;
+					; do the flat for everyone else
+					endif else begin
 						;
-						; build master flat
-						fpar = pcwi_read_ppar(mfppfn)
-						fpar.loglun  = ppar.loglun
-						fpar.verbose = ppar.verbose
-						fpar.display = ppar.display
-						pcwi_make_flat,fpar
-					endif
-					;
-					; read in master flat
-					mflat = mrdfits(mffile,0,mfhdr,/fscale,/silent)
-					;
-					; do correction
-					img = img * mflat
-					;
-					; variance is multiplied by flat squared
-					var = var * mflat^2
-					;
-					; update header
-					sxaddpar,mskhdr,'HISTORY','  '+pre+' '+systime(0)
-					sxaddpar,mskhdr,'FLATCOR','T',' flat corrected?'
-					sxaddpar,mskhdr,'MFFILE',mffile,' master flat file applied'
-					;
-					; write out final intensity image
-					ofil = pcwi_get_imname(ppar,imgnum[i],'_mskf',/nodir)
-					pcwi_write_image,msk,mskhdr,ofil,ppar
-					;
-					; update header
-					sxaddpar,varhdr,'HISTORY','  '+pre+' '+systime(0)
-					sxaddpar,varhdr,'FLATCOR','T',' flat corrected?'
-					sxaddpar,varhdr,'MFFILE',mffile,' master flat file applied'
-					;
-					; write out mask image
-					ofil = pcwi_get_imname(ppar,imgnum[i],'_varf',/nodir)
-					pcwi_write_image,var,varhdr,ofil,ppar
-					;
-					; update header
-					sxaddpar,hdr,'HISTORY','  '+pre+' '+systime(0)
-					sxaddpar,hdr,'FLATCOR','T',' flat corrected?'
-					sxaddpar,hdr,'MFFILE',mffile,' master flat file applied'
-					;
-					; write out final intensity image
-					ofil = pcwi_get_imname(ppar,imgnum[i],'_intf',/nodir)
-					pcwi_write_image,img,hdr,ofil,ppar
+						; build master flat if necessary
+						if not file_test(mffile) then begin
+							;
+							; build master flat
+							fpar = pcwi_read_ppar(mfppfn)
+							fpar.loglun  = ppar.loglun
+							fpar.verbose = ppar.verbose
+							fpar.display = ppar.display
+							pcwi_make_flat,fpar
+						endif
+						;
+						; read in master flat
+						mflat = mrdfits(mffile,0,mfhdr,/fscale,/silent)
+						;
+						; do correction
+						img = img * mflat
+						;
+						; variance is multiplied by flat squared
+						var = var * mflat^2
+						;
+						; update header
+						sxaddpar,mskhdr,'HISTORY','  '+pre+' '+systime(0)
+						sxaddpar,mskhdr,'FLATCOR','T',' flat corrected?'
+						sxaddpar,mskhdr,'MFFILE',mffile,' master flat file applied'
+						;
+						; write out final intensity image
+						ofil = pcwi_get_imname(ppar,imgnum[i],'_mskf',/nodir)
+						pcwi_write_image,msk,mskhdr,ofil,ppar
+						;
+						; update header
+						sxaddpar,varhdr,'HISTORY','  '+pre+' '+systime(0)
+						sxaddpar,varhdr,'FLATCOR','T',' flat corrected?'
+						sxaddpar,varhdr,'MFFILE',mffile,' master flat file applied'
+						;
+						; write out mask image
+						ofil = pcwi_get_imname(ppar,imgnum[i],'_varf',/nodir)
+						pcwi_write_image,var,varhdr,ofil,ppar
+						;
+						; update header
+						sxaddpar,hdr,'HISTORY','  '+pre+' '+systime(0)
+						sxaddpar,hdr,'FLATCOR','T',' flat corrected?'
+						sxaddpar,hdr,'MFFILE',mffile,' master flat file applied'
+						;
+						; write out final intensity image
+						ofil = pcwi_get_imname(ppar,imgnum[i],'_intf',/nodir)
+						pcwi_write_image,img,hdr,ofil,ppar
+					endelse
 					;
 					; handle the case when no flat frames were taken
 				endif else begin
