@@ -149,6 +149,7 @@ else	refb = 57	; default
 ;
 ; log
 pcwi_print_info,ppar,pre,'cross-correlating with reference bar',refb
+pcwi_print_info,ppar,pre,'using cc window (px)',ccwn
 ;
 ; cross-correlate to reference line
 for i=0,ns-1 do begin

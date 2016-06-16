@@ -212,17 +212,22 @@ prelim_refspec = prelim_refspec * tukeywgt(n_elements(prelim_refspec),ppar.taper
 ; (prelim_intspec and prelim_refspec), so let's do that:
 if ddisplay then window,1,title='pcwi_xspec'
 pcwi_xspec,prelim_intspec,prelim_refspec,ppar,prelim_offset,prelim_value, $
-	/min,/shift,/plot,label='Obj(0) vs Atlas(1)'
+	/min,/shift,/plot,label='Obj(0) vs Atlas(1)',central=5.
 if ddisplay then wset,0
+;
+; record initial offset
+pcwi_print_info,ppar,pre,'Initial arc-atlas offset (px, Ang)',prelim_offset, $
+	prelim_offset*refdisp,format='(a,1x,f9.2,1x,f9.2)'
 ;
 if ppar.display ge 2 then begin
 	q='test'
 	while strlen(q) gt 0 do begin
-	    plot,prelim_subwvl,prelim_spec/max(prelim_spec),charsi=si,charthi=th,thick=th, $
-		xthick=th,xtitle='Wave(A)', $
+	    plot,prelim_subwvl-prelim_offset*refdisp,prelim_spec/max(prelim_spec), $
+		charsi=si,charthi=th,thick=th,xthick=th,xtitle='Wave(A)', $
 		ythick=th,ytitle='Rel. Flux',title=imglab+', Offset = ' + $
-		strtrim(string(prelim_offset,form='(f9.3)'),2)+' px',/xs
-	    oplot,prelim_refwvl+prelim_offset*refdisp,prelim_refspec/max(prelim_refspec), $
+		strtrim(string(prelim_offset*refdisp,form='(f9.2)'),2)+' Ang ('+$
+		strtrim(string(prelim_offset,form='(f9.2)'),2)+' px)',/xs
+	    oplot,prelim_refwvl,prelim_refspec/max(prelim_refspec), $
 		color=colordex('red'),thick=th
 	    oplot,[cwvl,cwvl],!y.crange,color=colordex('green'),thick=th,linesty=2
 	    pcwi_legend,['Ref Bar ('+strn(refbar)+')','Atlas','CWAVE'],linesty=[0,0,2], $
@@ -235,6 +240,10 @@ if ppar.display ge 2 then begin
 		    prelim_offset = float(q)
 	endwhile
 endif
+;
+; record final offset
+pcwi_print_info,ppar,pre,'Final   arc-atlas offset (px, Ang)',prelim_offset, $
+	prelim_offset*refdisp,format='(a,1x,f9.2,1x,f9.2)'
 ;
 ; At this point we have the offsets between bars and the approximate offset from
 ; the reference bar to the actual spectrum and the approximate

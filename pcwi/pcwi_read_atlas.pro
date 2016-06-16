@@ -62,6 +62,10 @@ if not file_test(pgeom.refspec,/read,/regular) then begin
 	return
 endif
 ;
+; report the read
+pcwi_print_info,ppar,pre,'Reading atlas spectrum in',pgeom.refspec, $
+	format='(a,1x,a)'
+;
 ; load the reference atlas spectrum.
 rdfits1dspec,pgeom.refspec,refwave,atlas, $
 	wavezero=refw0, deltawave=refdisp, refpix=refpix

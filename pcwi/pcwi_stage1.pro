@@ -349,16 +349,22 @@ pro pcwi_stage1,ppfname,linkfname,help=help,select=select, $
 					osy1	= bsec[ia,1,1]
 					;
 					; collapse each row
-					osvec = total(img[osx0:osx1,osy0:osy1],1)/float(oscan_pix)
+					osvec = total(img[osx0:osx1,osy0:osy1],1)/float(osx1-osx0)
 					xx = findgen(n_elements(osvec)) + osy0
+					mo = moment(osvec)
+					mnos = mo[0]
+					sdos = sqrt(mo[1])
+					yrng = [mnos-sdos*3.,mnos+sdos*3.]
 					;
 					; fit overscan vector
 					res = polyfit(xx,osvec,7,osfit)
+					resid = osvec - osfit
+					mo = moment(resid)
+					mnrs = mo[0]
+					sdrs = sqrt(mo[1])
 					;
 					; plot if display set
 					if doplots then begin
-						resid = osvec - osfit
-						mo = moment(resid)
 						deepcolor
 						!p.background=colordex('white')
 						!p.color=colordex('black')
@@ -366,6 +372,7 @@ pro pcwi_stage1,ppfname,linkfname,help=help,select=select, $
 							title='Amp/Namps: '+strn(ia+1)+'/'+strn(namps)+ $
 							', Oscan Cols: '+strn(osx0)+' - '+strn(osx1)+ $
 							', Image: '+strn(imgnum[i]), $
+							yran=yrng,/ys, $
 							charth=2,charsi=1.5,xthi=2,ythi=2
 						oplot,xx,osfit,thick=2,color=colordex('green')
 						pcwi_legend,['Resid RMS: '+string(sqrt(mo[1]),form='(f5.1)')+$
@@ -393,6 +400,10 @@ pro pcwi_stage1,ppfname,linkfname,help=help,select=select, $
 						strtrim(string(namps),2)+' (x0,x1,y0,y1): '+ $
 						    strtrim(string(osx0),2)+','+strtrim(string(osx1),2)+ $
 						','+strtrim(string(osy0),2)+','+strtrim(string(osy1),2)
+					pcwi_print_info,ppar,pre,'overscan '+strtrim(string(ia+1),2)+'/'+ $
+						strtrim(string(namps),2)+' (<os>, sd os, <resid> sd resid): '+ $
+						     strtrim(string(mnos),2)+', '+strtrim(string(sdos),2)+ $
+						', '+strtrim(string(mnrs),2)+', '+strtrim(string(sdrs),2)
 					;
 					; make interactive if display greater than 1
 					if doplots and ppar.display ge 2 then begin
@@ -508,7 +519,7 @@ pro pcwi_stage1,ppfname,linkfname,help=help,select=select, $
 			sxaddpar,hdr,'BUNIT','electrons',' brightness units'
 			;
 			; log
-			pcwi_print_info,ppar,pre,'amplifier gains (e/DN)',gainstr
+			pcwi_print_info,ppar,pre,'amplifier gains (e/DN)',gainstr, format='(a,1x,a)'
 			;
 			; output gain-corrected image
 			if ppar.saveintims eq 1 then begin
