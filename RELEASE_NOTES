@@ -1,5 +1,18 @@
-# $Id: RELEASE_NOTES | Fri Apr 24 12:15:57 2015 -0700 | Don Neill  $
-# Copyright (c) 2013, California Institute of Technology, all rights reserved
+# Copyright (c) 2016, California Institute of Technology, all rights reserved
+
+2016-JUN-21: v0.3.2 - Fourteenth beta release
+
+- Now skip flattening of cbars images to avoid aliasing near slice edges
+
+- Make findpeaks.pro, pcwi_solve_arcs.pro more robust
+
+- Make arc atlas offset more robust by concentrating on central region of
+	cross-correlation
+
+- Outputs overscan stats for each amplifier
+
+- More diagnostic outputs
+
 
 2016-APR-25: v0.3.1 - Thirteenth beta release
 
