@@ -580,7 +580,7 @@ for i=istart,nf-1 do begin
 					;
 					; convert to decimal degrees
 					sta = strsplit(val,':',/extract)
-					dec = ten(fix(sta[0]),fix(sta[1]),float(sta[2]))
+					dec = ten(abs(fix(sta[0])),fix(sta[1]),float(sta[2]))
 					if strpos(val,'-') ge 0 then $
 						sgn = -1.d0 $
 					else	sgn = 1.d0
