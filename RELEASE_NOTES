@@ -1,5 +1,10 @@
 # Copyright (c) 2016, California Institute of Technology, all rights reserved
 
+2016-JUL-07: v0.3.3 - Fifteenth beta release
+
+- Fixed negative zero Dec problem
+
+
 2016-JUN-21: v0.3.2 - Fourteenth beta release
 
 - Now skip flattening of cbars images to avoid aliasing near slice edges
