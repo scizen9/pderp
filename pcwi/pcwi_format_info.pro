@@ -581,7 +581,10 @@ for i=istart,nf-1 do begin
 					; convert to decimal degrees
 					sta = strsplit(val,':',/extract)
 					dec = ten(fix(sta[0]),fix(sta[1]),float(sta[2]))
-					val = strtrim(string(dec,format='(f13.8)'),2)
+					if strpos(val,'-') ge 0 then $
+						sgn = -1.d0 $
+					else	sgn = 1.d0
+					val = strtrim(string(sgn*dec,format='(f13.8)'),2)
 					;
 					ityp = 5
 					;
