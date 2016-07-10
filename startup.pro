@@ -1,4 +1,3 @@
-; $Id: startup.pro | Mon Apr 20 09:02:02 2015 -0700 | Don Neill  $
 ;
 ; PCWI DRP IDL startup file
 ;
