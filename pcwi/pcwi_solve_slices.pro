@@ -155,6 +155,7 @@ for i=0,23 do begin
 endfor	; loop over slices
 ;
 ; Pgeom timestamp
+pgeom.progid = pre
 pgeom.timestamp = systime(1)
 ;
 if ppar.display ge 4 then $

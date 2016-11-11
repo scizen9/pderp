@@ -180,7 +180,7 @@ pro pcwi_stage1,ppfname,linkfname,help=help,select=select, $
 	for i=0,nproc-1 do begin
 		;
 		; raw image to process
-		obfil = pcwi_get_imname(ppar,imgnum[i],/raw)
+		obfil = pcwi_get_imname(ppar,imgnum[i],/raw,/exist)
 		pcfg = pcwi_read_cfg(obfil)
 		;
 		; final reduced output file

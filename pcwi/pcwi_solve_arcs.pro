@@ -763,6 +763,7 @@ endfor			; b
 ;
 ; stamp the PCWI_GEOM struct
 pgeom.progid = pre
+pgeom.timestamp = systime(1)
 ;
 ; now let's make some plots!
 ;

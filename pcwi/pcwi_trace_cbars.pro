@@ -555,6 +555,7 @@ pgeom.slice = slice
 pgeom.barx = barx
 pgeom.midrow = midrow
 pgeom.initialized = 1
+kgeom.progid = pre
 pgeom.timestamp = systime(1)
 ;
 ; make warped version, if requested

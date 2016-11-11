@@ -230,5 +230,9 @@ pro pcwi_set_geom,pgeom,ipcfg,ppar, help=help
 	pcwi_print_info,ppar,pre,'Data cube output Disp (A/px), Wave0 (A): ', $
 		pgeom.dwout,pgeom.wave0out,format='(a,f8.3,f9.2)'
 	;
+	; log our changes to geom struct
+	pgeom.progid = pre
+	pgeom.timestamp = systime(1)
+	;
 	return
 end

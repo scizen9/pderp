@@ -187,6 +187,7 @@ endfor
 pgeom.baroff = boff
 ;
 ; Pgeom timestamp
+pgeom.progid = pre
 pgeom.timestamp = systime(1)
 ;
 ; clean up
