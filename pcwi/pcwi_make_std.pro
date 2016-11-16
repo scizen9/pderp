@@ -92,6 +92,9 @@ pro pcwi_make_std,pcfg,ppar,invsen
 		return
 	endif
 	;
+	; are we using the n&s mask?
+	masked = sxpar(hdr,'NASMASK')
+	;
 	; check standard
 	sname = strlowcase(strtrim(sxpar(hdr,'object'),2))
 	;
@@ -273,7 +276,9 @@ pro pcwi_make_std,pcfg,ppar,invsen
 		format='(a,f5.1,1x,a)'
 	;
 	; smooth to this resolution
-	obsspec = gaussfold(w,obsspec,fwhm,lammin=wgoo0,lammax=wgoo1)
+	if masked then $
+		obsspec = gaussfold(w,obsspec,fwhm) $
+	else	obsspec = gaussfold(w,obsspec,fwhm,lammin=wgoo0,lammax=wgoo1)
 	;
 	; resample standard onto our wavelength grid
 	linterp,swl,sflx,w,rsflx

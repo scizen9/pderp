@@ -13,14 +13,13 @@
 ;	Data reduction for the Palomar Cosmic Web Imager (PCWI).
 ;
 ; CALLING SEQUENCE:
-;	Result = PCWI_READ_IMAGE( Pcfg, Ppar, Tail, Hdr)
+;	Result = PCWI_READ_IMAGE( ImgNo, Ppar, Tail, Hdr)
 ;
 ; Returns:
 ;	2-d or 3-d image, or -1 if image file not found
 ;
 ; INPUTS:
-;	Pcfg	- PCWI_CFG struct for a single observation.  If this is a
-;			array, will only read first image
+;	ImgNo	- Image serial number
 ;	Ppar	- PCWI_PPAR struct specifying inputs and logging flags
 ;	Tail	- string specifying tail, e.g. '_int', '_icube'
 ;
@@ -55,8 +54,8 @@ function pcwi_read_image,imgnum,ppar,tail,hdr, $
 	;
 	; help request
 	if keyword_set(help) then begin
-		print,pre+': Info - Usage: Img = '+pre+'( Pcfg, Ppar, Tail, Hdr)'
-		print,pre+': Info - Keywords: STATUS=STATUS, /HELP'
+		print,pre+': Info - Usage: Img = '+pre+'( ImgNo, Ppar, Tail, Hdr)'
+		print,pre+': Info - Keywords: STATUS=STATUS, MASTER=MASTER, CALIB=CALIB, /HELP'
 		return,-1
 	endif
 	;
