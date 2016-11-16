@@ -92,9 +92,6 @@ pro pcwi_make_std,pcfg,ppar,invsen
 		return
 	endif
 	;
-	; are we using the n&s mask?
-	masked = sxpar(hdr,'NASMASK')
-	;
 	; check standard
 	sname = strlowcase(strtrim(sxpar(hdr,'object'),2))
 	;
@@ -276,7 +273,7 @@ pro pcwi_make_std,pcfg,ppar,invsen
 		format='(a,f5.1,1x,a)'
 	;
 	; smooth to this resolution
-	if masked then $
+	if pcfg.nasmask then $
 		obsspec = gaussfold(w,obsspec,fwhm) $
 	else	obsspec = gaussfold(w,obsspec,fwhm,lammin=wgoo0,lammax=wgoo1)
 	;
@@ -292,7 +289,7 @@ pro pcwi_make_std,pcfg,ppar,invsen
 	; get effective area
 	earea = obsspec / rspho
 	;
-	; fit inverse sensitivity
+	; fit inverse sensitivity, effective area
 	t=where(w ge wgoo0 and w le wgoo1, nt)
 	if nt gt 0 then begin
 		wf = w - min(w)
@@ -300,10 +297,19 @@ pro pcwi_make_std,pcfg,ppar,invsen
 		wgt = (invsen - invsen) + 1.
 		bad = where(w lt wgoo0 or w gt wgoo1, nbad)
 		if nbad gt 0 then wgt[bad] = 0.
+		pcwi_print_info,ppar,pre,'# pixels outside wl range',nbad,info=2
 		;
-		; polynomial fit
-		res = polyfit(wf,sf,5,yfit,weight=wgt)
-		finvsen = poly(wf,res)
+		; iterative polynomial fit from 4-6 order
+		for i=4,8 do begin
+			res = polyfit(wf,sf,i,finvsen,weight=wgt)
+			diff = sf - finvsen
+			ims,diff,rmn,rsg,wgt
+			if nbad gt 0 then wgt[bad] = 0.
+			good = where(wgt gt 0., ngood)
+			pcwi_print_info,ppar,pre,'Fit order, # good points',i,ngood, $
+				info=2
+		endfor
+		fearea = (rsflx / finvsen ) / rspho
 	endif else begin
 		pcwi_print_info,ppar,pre,'no good wavelengths to fit',/error
 	endelse
@@ -330,6 +336,7 @@ pro pcwi_make_std,pcfg,ppar,invsen
 				xtitle='Wave (A)',xran=[wall0,wall1],/xs, $
 				ytitle='Effective Area (cm^2/A)',ys=9, $
 				yran=yrng,xmargin=[11,8]
+			oplot,w,fearea,color=colordex('red')
 			oplot,[wgoo0,wgoo0],!y.crange,color=colordex('green'), $
 				thick=3
 			oplot,[wgoo1,wgoo1],!y.crange,color=colordex('green'), $
@@ -342,6 +349,7 @@ pro pcwi_make_std,pcfg,ppar,invsen
 			plot,w,earea,title=sname+' Img #: '+strn(pcfg.imgnum), $
 				xtitle='Wave (A)',xran=[wall0,wall1],/xs, $
 				ytitle='Effective Area (cm^2/A)',yran=yrng,/ys
+			oplot,w,fearea,color=colordex('red')
 			oplot,[wgoo0,wgoo0],!y.crange,color=colordex('green'), $
 				thick=3
 			oplot,[wgoo1,wgoo1],!y.crange,color=colordex('green'), $

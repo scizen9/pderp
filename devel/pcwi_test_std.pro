@@ -50,14 +50,27 @@ pro pcwi_test_std,imno,ps=ps,verbose=verbose,display=display
 	endif
 	;
 	; get params
-	ppar = pcwi_read_ppar('./redux/pcwi.ppar')
+	pfile = 'pcwi.ppar'
+	if not file_test(pfile) then begin
+		pfile = 'redux/pcwi.ppar'
+		if not file_test(pfile) then begin
+			print,'Parameter file not found: ',pfile
+			return
+		endif
+	endif
+	ppar = pcwi_read_ppar(pfile)
+	;
+	; get input file
+	ifil = pcwi_get_imname(ppar,imno,'_icubes',/reduced)
+	if file_test(ifil) then begin
+		pcfg = pcwi_read_cfg(ifil)
+	endif else begin
+		print,'Input file not found: ',ifil
+		return
+	endelse
 	;
 	; get image number string
 	imstr = string(imno,format='(i0'+strn(ppar.fdigits)+')')
-	;
-	; get inputs
-	fspec = ppar.froot + imstr + '_icubes.fits'
-	pcfg = pcwi_read_cfgs('./redux',filespec=fspec)
 	;
 	; check keyword overrides
 	if keyword_set(verbose) then $
@@ -85,9 +98,6 @@ pro pcwi_test_std,imno,ps=ps,verbose=verbose,display=display
 		pcwi_print_info,ppar,pre,'could not read input file',/error
 		return
 	endif
-	;
-	; are we using the n&s mask?
-	masked = sxpar(hdr,'NASMASK')
 	;
 	; check standard
 	sname = strlowcase(strtrim(sxpar(hdr,'object'),2))
@@ -240,7 +250,7 @@ pro pcwi_test_std,imno,ps=ps,verbose=verbose,display=display
 	linterp,swl,sflx,w,rsflx
 	;
 	; get a smoothed version
-	if masked then $
+	if pcfg.nasmask then $
 		stdsmoo = gaussfold(w,stdspec,fwhm) $
 	else	stdsmoo = gaussfold(w,stdspec,fwhm,lammin=wgoo0,lammax=wgoo1)
 	;
