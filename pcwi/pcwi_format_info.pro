@@ -102,7 +102,7 @@ endif
 print,pre,' INFO - number of images found: ',nf
 ;
 ; extract image numbers
-imgnos = fix(stregex(flist,'[0-9]+',/extract))
+imgnos = long(stregex(flist,'[0-9]+',/extract))
 ;
 ; archive output file
 fnam = 'hdrfix.txt'
@@ -119,7 +119,7 @@ if keyword_set(update) then begin
 		; read current file to find last image number
 		readcol,fnam,mkeys,val,tcode,after,rng, $
 			form='a,a,i,a,a',comment='#',delim=' '
-		lastimg = fix(rng[n_elements(rng)-1])
+		lastimg = long(rng[n_elements(rng)-1])
 		;
 		; starting image
 		newims = where(imgnos gt lastimg, nnew)
@@ -316,7 +316,7 @@ for i=istart,nf-1 do begin
 	redgrat = (1 eq 0)
 	;
 	; get image number
-	imgno = fix(stregex(flist[i],'[0-9]+',/extract))
+	imgno = long(stregex(flist[i],'[0-9]+',/extract))
 	;
 	; check against twilight flat list
 	if twiran[0] ge 0 then begin

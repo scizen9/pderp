@@ -59,13 +59,13 @@ pro pcwi_print_cfgs,pcfg,imsum,header=header,silent=silent,outfile=outfile
 		openw,ol,outfile,/get_lun
 		printf,ol,'# '+pre+'  '+systime(0)
 		printf,ol,'# SSM = Sky, Shuffle, Mask: 0 - no, 1 - yes'
-		printf,ol,'#  #/   N Bin AMPS SSM GRAT FILT   FM4pos    GRpos   CAMpos   FOCpos   Cwave JDobs         Expt Type     Imno   RA          Dec             PA    Object'
+		printf,ol,'#  #/   N Bin AMPS SSM GRAT FILT   FM4pos    GRpos   CAMpos   FOCpos   Cwave JDobs         Expt Type       Imno   RA          Dec             PA    Object'
 	endif
 	;
 	; header?
 	if keyword_set(header) and not keyword_set(silent) then begin
 		print,' SSM = Sky, Shuffle, Mask: 0 - no, 1 - yes'
-		print,'   #/   N Bin AMPS SSM GRAT FILT   FM4pos    GRpos   CAMpos   FOCpos   Cwave JDobs         Expt Type     Imno   RA          Dec             PA    Object'
+		print,'   #/   N Bin AMPS SSM GRAT FILT   FM4pos    GRpos   CAMpos   FOCpos   Cwave JDobs         Expt Type       Imno   RA          Dec             PA    Object'
 	endif
 	;
 	; current date
@@ -84,7 +84,7 @@ pro pcwi_print_cfgs,pcfg,imsum,header=header,silent=silent,outfile=outfile
 			pcfg[i].focpos,pcfg[i].cwave,pcfg[i].juliandate, $
 			pcfg[i].exptime,strtrim(pcfg[i].imgtype,2), $
 			pcfg[i].imgnum,pcfg[i].ra,pcfg[i].dec,pcfg[i].rotpa, $
-			format='(i4,a1,i4,2i2,1x,a-5,3i1,1x,a-4,1x,a-4,4i9,f8.1,f12.3,f7.1,1x,a-8,i5,2f13.8,2x,f7.2)')
+			format='(i4,a1,i4,2i2,1x,a-5,3i1,1x,a-4,1x,a-4,4i9,f8.1,f12.3,f7.1,1x,a-8,i7,2f13.8,2x,f7.2)')
 		;
 		; add object info
 		if strpos(pcfg[i].imgtype,'object') ge 0 then begin

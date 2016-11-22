@@ -129,7 +129,7 @@ endif
 print,pre,' INFO - number of images found: ',nf
 ;
 ; extract image numbers
-imgnos = fix(stregex(flist,'[0-9]+',/extract))
+imgnos = long(stregex(flist,'[0-9]+',/extract))
 ;
 ; read in header modification file
 readcol,hmf,mkeys,val,tcode,after,rng,form='a,a,i,a,a',comment='#',delim=' '
