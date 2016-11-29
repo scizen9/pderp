@@ -318,12 +318,6 @@ for i=istart,nf-1 do begin
 	; get image number
 	imgno = long(stregex(flist[i],'[0-9]+',/extract))
 	;
-	; check against twilight flat list
-	if twiran[0] ge 0 then begin
-		t = where(twiran eq imgno, nt)
-		if nt eq 1 then tflat = (1 eq 1)
-	endif
-	;
 	; read in header and check for bias frame
 	hdr = headfits(flist[i])
 	;
