@@ -63,7 +63,7 @@ function pcwi_get_imname,ppar,imgnum,tail, $
 			ofil = file
 			file = file + '.gz'
 			if not file_test(file,/regular,/read) then begin
-				kcwi_print_info,ppar,pre, $
+				pcwi_print_info,ppar,pre, $
 					'File not found: '+ofil+' nor '+file,/error
 				file = ofil
 			endif
