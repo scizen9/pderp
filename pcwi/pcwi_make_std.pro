@@ -313,6 +313,7 @@ pro pcwi_make_std,pcfg,ppar,invsen
 				pcwi_print_info,ppar,pre, $
 					'Low order fit for N&S mask data',info=2
 				break
+			endif
 		endfor
 		fearea = (rsflx / finvsen ) / rspho
 	endif else begin
