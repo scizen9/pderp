@@ -50,6 +50,7 @@
 ;	2014-APR-22	Initial Revision
 ;	2014-SEP-23	Added extinction correction
 ;	2016-MAR-03	Split from kderp to pderp
+;	2019-MAY-07	Lower order fit for N&S data
 ;-
 pro pcwi_make_std,pcfg,ppar,invsen
 	;
@@ -308,6 +309,10 @@ pro pcwi_make_std,pcfg,ppar,invsen
 			good = where(wgt gt 0., ngood)
 			pcwi_print_info,ppar,pre,'Fit order, # good points',i,ngood, $
 				info=2
+			if pcfg.nasmask then begin
+				pcwi_print_info,ppar,pre, $
+					'Low order fit for N&S mask data',info=2
+				break
 		endfor
 		fearea = (rsflx / finvsen ) / rspho
 	endif else begin
